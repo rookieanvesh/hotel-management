@@ -10,7 +10,7 @@ public interface IUserService {
     Response getAllUsers();
     Response getUserBookingHistory(String userId);
     Response deleteUser(String userId);
-    Response getAllUserById(String userId);
+    Response getUserById(String userId);
     Response getMyInfo(String email);
 
 }
