@@ -37,26 +37,26 @@ public class BookingService implements IBookingService {
     public Response saveBooking(Long roomId, Long userId, Booking bookingRequest) {
         Response response = new Response();
         try{
-            if(bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())){
-                throw new IllegalArgumentException("Check-in date must be before check-out date");
+            if (bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())) {
+                throw new IllegalArgumentException("Check in date must come after check out date");
             }
-            Room room = roomRepository.findById(roomId).orElseThrow(()-> new OurException("Room not found"));
-            User user = userRepository.findById(userId).orElseThrow(()-> new OurException("User not found"));
+            Room room = roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
+            User user = userRepository.findById(userId).orElseThrow(() -> new OurException("User Not Found"));
+
             List<Booking> existingBookings = room.getBookings();
-            if(!roomIsAvailable(bookingRequest, existingBookings)){
-                throw new OurException("Room not available for the selected date range");
+
+            if (!roomIsAvailable(bookingRequest, existingBookings)) {
+                throw new OurException("Room not Available for selected date range");
             }
+
             bookingRequest.setRoom(room);
             bookingRequest.setUser(user);
             String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
             bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
             bookingRepository.save(bookingRequest);
             response.setStatusCode(200);
-            response.setMessage("Successful");
+            response.setMessage("successful");
             response.setBookingConfirmationCode(bookingConfirmationCode);
-
-            response.setMessage("Successful");
-            response.setStatusCode(200);
 
         }catch (OurException e){
             response.setStatusCode(404);

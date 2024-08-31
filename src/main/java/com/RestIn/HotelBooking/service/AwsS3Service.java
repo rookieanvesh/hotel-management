@@ -17,10 +17,10 @@ import java.io.InputStream;
 @Service
 public class AwsS3Service {
     private final String bucketName = "anvesh-hotel-bucket-images";
-    @Value("{aws.s3.access.key}")
+    @Value("${aws.s3.access.key}")
     private String awsS3AccessKey;
 
-    @Value("{aws.s3.secret.key}")
+    @Value("${aws.s3.secret.key}")
     private String awsS3SecretKey;
 
     //uploading image to s3
