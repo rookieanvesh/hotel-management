@@ -64,7 +64,7 @@ public class RoomController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/available-rooms-by=date-and-type")
+    @GetMapping("/available-rooms-by-date-and-type")
     public ResponseEntity<Response> getAvailableRoomsByDateAndType(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate checkInDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate checkOutDate,
